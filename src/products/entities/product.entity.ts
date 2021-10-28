@@ -12,6 +12,6 @@ export class Product {
   price: number;
   @Column({type: 'integer'})
   stock: number;
-  @Column({type: 'text', length: 255})
+  @Column({type: 'text'})
   image: string;
 }
