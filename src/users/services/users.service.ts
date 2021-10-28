@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException, Inject } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { Client } from 'pg';
 
 import { User } from '../entities/user.entity';
 import { Order } from '../entities/order.entity';
@@ -12,6 +13,7 @@ export class UsersService {
   constructor(
     private productsService: ProductsService,
     private configService: ConfigService,
+    @Inject('PG') private db: Client,
   ) {}
 
   private counterId = 1;
@@ -75,5 +77,16 @@ export class UsersService {
       user,
       products: this.productsService.findAll(),
     };
+  }
+
+  get_employees() {
+    return new Promise((resolve, reject) => {
+      this.db.query('SELECT * FROM employee', (err, res) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(res.rows);
+      });
+    });
   }
 }

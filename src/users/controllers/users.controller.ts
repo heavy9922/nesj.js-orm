@@ -21,6 +21,11 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @Get('employee')
+  get_employee(){
+    return this.usersService.get_employees();
+  }
+
   @Get(':id')
   get(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.findOne(id);
@@ -48,4 +53,6 @@ export class UsersController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.remove(+id);
   }
+
+
 }
